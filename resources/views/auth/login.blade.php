@@ -7,9 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    :root{--forest:#1B4332;--gold:#E09F3E;--sage:#52796F;
-          --cream:#FDFAF5;--gray2:#EEECE8;--gray3:#D0CEC8;
-          --text:#2C2A26;--text-muted:#7A7870;
+    :root{--forest:#16324F;--gold:#CBA35D;--sage:#5C7A99;
+          --cream:#F6F8FB;--gray2:#E3E9F0;--gray3:#C6D0DB;
+          --text:#1C2733;--text-muted:#5B6774;
           --ff-display:'Playfair Display',serif;
           --ff-body:'DM Sans',sans-serif}
     body{font-family:var(--ff-body);background:var(--cream);
@@ -29,7 +29,7 @@
           border-radius:8px;padding:10px 14px;font-size:14px;
           font-family:var(--ff-body);color:var(--text);transition:all .18s;margin-bottom:16px}
     input:focus{outline:none;border-color:var(--sage);background:#fff;
-                box-shadow:0 0 0 3px rgba(82,121,111,.15)}
+                box-shadow:0 0 0 3px rgba(92,122,153,.15)}
     .err{color:#B91C1C;font-size:12px;margin-top:-12px;margin-bottom:12px}
     .forgot-link{text-align:right;margin-top:-8px;margin-bottom:16px}
     .forgot-link a{font-size:13px;color:var(--forest);text-decoration:none;font-weight:500}
