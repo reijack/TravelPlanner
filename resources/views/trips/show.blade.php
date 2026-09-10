@@ -139,7 +139,7 @@
       <span><i class="ti ti-wallet"></i> Rp {{ number_format($trip->budget) }}</span>
     </div>
   </div>
-  <a href="{{ route('trips.edit',$trip) }}" class="btn-outline sm" style="color:#fff;border-color:rgba(255,255,255,.4)">
+  <a href="{{ route('trips.edit',$trip) }}" class="btn-outline sm btn-outline-light">
     <i class="ti ti-edit"></i> Edit
   </a>
 </div>
@@ -159,7 +159,7 @@
   <div class="day-block">
     <div class="day-header">
       <div class="day-title">Hari {{ $d }} — {{ \Carbon\Carbon::parse($trip->start_date)->addDays($d-1)->isoFormat('dddd, D MMMM Y') }}</div>
-      <button class="btn-outline sm" style="color:#fff;border-color:rgba(255,255,255,.4);background:transparent" onclick="toggleForm({{ $d }})">
+      <button class="btn-outline sm btn-outline-light" onclick="toggleForm({{ $d }})">
         <i class="ti ti-plus"></i> Tambah
       </button>
     </div>

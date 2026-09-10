@@ -57,7 +57,7 @@
     <h2>Manajemen Pengguna 👥</h2>
     <p>Kelola semua akun pengguna Travel Planner</p>
   </div>
-  <a href="{{ route('trips.index') }}" class="btn-outline sm" style="color:#fff;border-color:rgba(255,255,255,.3)">
+  <a href="{{ route('trips.index') }}" class="btn-outline sm btn-outline-light">
     <i class="ti ti-arrow-left"></i> Kembali ke Dashboard
   </a>
 </div>
