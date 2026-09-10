@@ -59,7 +59,7 @@
   .cl-item{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--gray2);transition:background .15s}
   .cl-item:last-child{border-bottom:none}
   .cl-item:hover{background:var(--gray1)}
-  .cl-name{flex:1;font-size:14px}0
+  .cl-name{flex:1;font-size:14px}
   .cl-name.done{text-decoration:line-through;color:var(--gray3)}
   .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
   .photo-card{background:#fff;border-radius:12px;border:1px solid var(--gray2);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);transition:all .18s}

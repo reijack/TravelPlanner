@@ -3,12 +3,12 @@
 @section('page-title','Edit Trip')
 
 @section('content')
-<form action="{{ route('trips.update', $trip) }}" method="POST">
+<form class="trip-form" action="{{ route('trips.update', $trip) }}" method="POST">
   @csrf
   @method('PUT')
   <div class="page-header">
     <div>
-      <h1 class="page-h1">Edit Trip ✏️</h1>
+      <h1 class="page-h1">Edit Trip</h1>
       <p class="page-sub">Ubah detail rencana perjalanan</p>
     </div>
     <a href="{{ route('trips.show',$trip) }}" class="btn-outline"><i class="ti ti-arrow-left"></i> Kembali</a>

@@ -37,8 +37,9 @@
           font-family:var(--ff-body);cursor:pointer;transition:background .18s}
     .btn:hover{background:var(--sage)}
   </style>
+  <link rel="stylesheet" href="{{ asset('css/refined.css') }}"/>
 </head>
-<body>
+<body class="auth-page">
 <div class="wrap">
   <div class="logo">
     <div class="logo-icon">🧭</div>
@@ -69,5 +70,6 @@
     </form>
   </div>
 </div>
+<script src="{{ asset('js/refined.js') }}" defer></script>
 </body>
 </html>

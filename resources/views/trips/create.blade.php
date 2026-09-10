@@ -3,7 +3,7 @@
 @section('page-title','Buat Trip Baru')
 
 @section('content')
-<form action="{{ route('trips.store') }}" method="POST">
+<form class="trip-form" action="{{ route('trips.store') }}" method="POST">
   @csrf
   <div class="page-header">
     <div>

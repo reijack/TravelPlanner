@@ -57,8 +57,8 @@
 @section('content')
 <div class="hero">
   <div class="hero-tag"><i class="ti ti-sun"></i> Selamat datang!</div>
-  <h1>Rencanakan Petualanganmu </h1>
-  <p>kelola semua trip, itinerary, dan budget perjalananmu di satu tempat.</p>
+  <h1>Perjalanan berikutnya, lebih terencana.</h1>
+  <p>Atur destinasi, aktivitas, dan anggaran dalam satu tempat.</p>
   <a href="{{ route('trips.create') }}" class="btn-primary"><i class="ti ti-plus"></i> Buat Trip Baru</a>
 </div>
 
@@ -81,7 +81,7 @@
   </div>
 </div>
 
-<div class="sec-title">Semua Trip</div>
+<div class="section-heading"><h2 class="sec-title">Perjalananmu</h2><span class="section-count">{{ $trips->count() }} trip</span></div>
 
 @if($trips->isEmpty())
 <div class="empty">
@@ -123,15 +123,15 @@
     </div>
     <div class="tc-actions">
       <a href="{{ route('trips.show', $trip) }}" class="btn-primary" style="flex:1;text-align:center">
-        <i class="ti ti-eye"></i> Lihat
+        Lihat perjalanan <i class="ti ti-arrow-up-right"></i>
       </a>
-      <a href="{{ route('trips.edit', $trip) }}" class="btn-outline">
+      <a href="{{ route('trips.edit', $trip) }}" class="btn-outline" aria-label="Edit {{ $trip->trip_name }}">
         <i class="ti ti-edit"></i>
       </a>
       <form action="{{ route('trips.destroy', $trip) }}" method="POST" onsubmit="return confirm('Hapus trip ini?')">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn-outline" style="color:#dc2626;border-color:#fca5a5">
+        <button type="submit" aria-label="Hapus {{ $trip->trip_name }}" class="btn-outline" style="color:#dc2626;border-color:#fca5a5">
           <i class="ti ti-trash"></i>
         </button>
       </form>

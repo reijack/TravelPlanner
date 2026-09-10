@@ -40,8 +40,9 @@
     .footer{text-align:center;margin-top:18px;font-size:13px;color:var(--text-muted)}
     .footer a{color:var(--forest);text-decoration:none;font-weight:500}
   </style>
+  <link rel="stylesheet" href="{{ asset('css/refined.css') }}"/>
 </head>
-<body>
+<body class="auth-page">
 <div class="wrap">
   <div class="logo">
     <div class="logo-icon">🧭</div>
@@ -68,5 +69,6 @@
     </p>
   </div>
 </div>
+<script src="{{ asset('js/refined.js') }}" defer></script>
 </body>
 </html>

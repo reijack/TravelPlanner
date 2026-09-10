@@ -94,13 +94,16 @@
     }
   </style>
   @stack('styles')
+  <link rel="stylesheet" href="{{ asset('css/refined.css') }}"/>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Lewati ke konten</a>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <div class="brand-logo"><i class="ti ti-compass"></i></div>
     <span class="brand-name">Travel Planner</span>
+    <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Tutup menu">×</button>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-label">Menu</div>
@@ -126,7 +129,7 @@
 </aside>
 <div class="main-wrapper">
   <header class="topbar">
-    <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Buka menu">
+    <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Buka menu" aria-controls="sidebar" aria-expanded="false">
       <i class="ti ti-menu-2"></i>
     </button>
     <div class="topbar-title">@yield('page-title', 'Travel Planner')</div>
@@ -146,37 +149,17 @@
   </div>
 </div>
   </header>
-  <main class="content">
+  <main class="content" id="main-content" tabindex="-1">
     @if(session('success'))
-      <div class="alert alert-success"><i class="ti ti-circle-check"></i> {{ session('success') }}</div>
+      <div class="alert alert-success" role="status"><i class="ti ti-circle-check"></i> {{ session('success') }}</div>
     @endif
     @if(session('error'))
-      <div class="alert alert-error"><i class="ti ti-alert-circle"></i> {{ session('error') }}</div>
+      <div class="alert alert-error" role="alert"><i class="ti ti-alert-circle"></i> {{ session('error') }}</div>
     @endif
     @yield('content')
   </main>
 </div>
-<script>
-  (function(){
-    var sidebar = document.getElementById('sidebar');
-    var overlay = document.getElementById('sidebarOverlay');
-    var btn = document.getElementById('hamburgerBtn');
-    function closeSidebar(){
-      sidebar.classList.remove('open');
-      overlay.classList.remove('open');
-    }
-    if (btn) {
-      btn.addEventListener('click', function(){
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('open');
-      });
-    }
-    if (overlay) overlay.addEventListener('click', closeSidebar);
-    sidebar.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', closeSidebar);
-    });
-  })();
-</script>
+<script src="{{ asset('js/refined.js') }}" defer></script>
 @stack('scripts')
 </body>
 </html>
