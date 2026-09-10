@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
     
     \View::composer('*', function ($view) {
         if (\Illuminate\Support\Facades\Auth::check()) {
-            $view->with('sidebarTrips', \App\Models\Trip::latest()->take(5)->get());
+            $view->with('sidebarTrips', \Illuminate\Support\Facades\Auth::user()->trips()->latest()->take(5)->get());
         }
     });
 
