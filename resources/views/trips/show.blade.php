@@ -82,6 +82,16 @@
   .modal-footer{display:flex;justify-content:flex-end;gap:10px;padding:16px 24px 20px;border-top:1px solid var(--gray2)}
   .btn-ghost{background:transparent;color:var(--text-muted);border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-family:var(--ff-body);cursor:pointer}
   .btn-ghost:hover{background:var(--gray1)}
+  .pc-section-title{font-size:15px;font-weight:600;color:var(--forest);margin:0 0 12px;display:flex;align-items:center;gap:8px}
+  .pc-table-wrap{background:#fff;border-radius:16px;border:1px solid var(--gray2);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:24px}
+  .pc-table{width:100%;border-collapse:collapse}
+  .pc-table th{background:var(--sand);padding:11px 16px;font-size:12px;font-weight:500;color:var(--text-muted);text-align:left;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--gray2)}
+  .pc-table td{padding:13px 16px;font-size:14px;border-bottom:1px solid var(--gray2)}
+  .pc-table tbody tr:last-child td{border-bottom:none}
+  .pc-table tbody tr.pc-cheapest{background:#EAF3DE}
+  .pc-table tbody tr:hover{background:var(--gray1)}
+  .pc-badge{font-size:11px;padding:2px 9px;border-radius:8px;font-weight:500;background:#EAF3DE;color:#3B6D11;white-space:nowrap}
+  .pc-link{color:var(--forest);font-size:13px;display:inline-flex;align-items:center;gap:3px}
 </style>
 @endpush
 
@@ -113,6 +123,7 @@
   <button class="tab-btn" onclick="switchTab('budget',this)"><i class="ti ti-wallet"></i> Budget</button>
   <button class="tab-btn" onclick="switchTab('checklist',this)"><i class="ti ti-checklist"></i> Checklist</button>
   <button class="tab-btn" onclick="switchTab('gallery',this)"><i class="ti ti-photo"></i> Galeri</button>
+  <button class="tab-btn" onclick="switchTab('harga',this)"><i class="ti ti-scale"></i> Perbandingan Harga</button>
 </div>
 
 {{-- ITINERARY --}}
@@ -430,6 +441,94 @@
   </div>
 </div>
 
+{{-- PERBANDINGAN HARGA --}}
+<div class="tab-content" id="tab-harga">
+  @foreach(['hotel' => ['label' => 'Hotel', 'icon' => 'ti-bed'], 'transportasi' => ['label' => 'Transportasi', 'icon' => 'ti-bus']] as $catKey => $catInfo)
+  @php
+    $rows = $priceComparisons->get($catKey, collect());
+    $cheapestId = $rows->isNotEmpty() ? $rows->first()->id : null;
+  @endphp
+  <div class="pc-section-title"><i class="ti {{ $catInfo['icon'] }}"></i> {{ $catInfo['label'] }}</div>
+  <div class="pc-table-wrap">
+    <table class="pc-table">
+      <thead>
+        <tr><th>Nama</th><th>Detail</th><th>Harga</th><th>Link</th><th></th></tr>
+      </thead>
+      <tbody>
+        @forelse($rows as $row)
+        <tr class="{{ $row->id === $cheapestId ? 'pc-cheapest' : '' }}">
+          <td>
+            <strong>{{ $row->name }}</strong>
+            @if($row->id === $cheapestId)<div class="pc-badge" style="margin-top:4px;display:inline-block"><i class="ti ti-award"></i> Termurah</div>@endif
+          </td>
+          <td>{{ $row->description ?? '—' }}@if($row->notes)<div style="font-size:12px;color:var(--text-muted);margin-top:2px">{{ $row->notes }}</div>@endif</td>
+          <td>Rp {{ number_format($row->price) }}</td>
+          <td>@if($row->link)<a href="{{ $row->link }}" target="_blank" rel="noopener" class="pc-link"><i class="ti ti-external-link"></i> Lihat</a>@else —@endif</td>
+          <td>
+            <div style="display:flex;gap:4px">
+              <button type="button" class="btn-outline sm" style="padding:5px 8px"
+                onclick="openEditHarga({{ $row->id }},'{{ $row->category }}','{{ addslashes($row->name) }}','{{ addslashes($row->description ?? '') }}',{{ $row->price }},'{{ addslashes($row->link ?? '') }}','{{ addslashes($row->notes ?? '') }}')">
+                <i class="ti ti-edit"></i>
+              </button>
+              <form action="{{ route('price-comparisons.destroy',$row) }}" method="POST">
+                @csrf @method('DELETE')
+                <button type="submit" class="btn-danger" style="padding:5px 8px" onclick="return confirm('Hapus?')">
+                  <i class="ti ti-trash"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        @empty
+        <tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:28px">Belum ada opsi {{ strtolower($catInfo['label']) }} untuk dibandingkan.</td></tr>
+        @endforelse
+      </tbody>
+    </table>
+  </div>
+  @endforeach
+
+  <div class="form-section" style="max-width:560px">
+    <div class="form-section-title"><i class="ti ti-plus"></i> Tambah Opsi Perbandingan</div>
+    <form action="{{ route('price-comparisons.store',$trip) }}" method="POST">
+      @csrf
+      <div class="form-row">
+        <div class="form-group">
+          <label>Kategori *</label>
+          <select name="category" class="form-input" required>
+            <option value="hotel">Hotel</option>
+            <option value="transportasi">Transportasi</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nama *</label>
+          <input type="text" name="name" class="form-input" placeholder="Cth: Hotel Santika / Garuda Indonesia" maxlength="100" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Detail</label>
+          <input type="text" name="description" class="form-input" placeholder="Cth: Kamar Deluxe / Kelas Ekonomi" maxlength="100"/>
+        </div>
+        <div class="form-group">
+          <label>Harga (Rp) *</label>
+          <input type="number" name="price" class="form-input" placeholder="500000" min="0" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Link Booking</label>
+          <input type="url" name="link" class="form-input" placeholder="https://..."/>
+        </div>
+        <div class="form-group">
+          <label>Catatan / Fasilitas</label>
+          <input type="text" name="notes" class="form-input" placeholder="Cth: Termasuk sarapan" maxlength="150"/>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary"><i class="ti ti-check"></i> Tambah ke Perbandingan</button>
+    </form>
+  </div>
+</div>
+
 {{-- MODAL EDIT AKTIVITAS --}}
 <div class="modal-overlay" id="modalAct">
   <div class="modal">
@@ -599,6 +698,58 @@
   </div>
 </div>
 
+{{-- MODAL EDIT PERBANDINGAN HARGA --}}
+<div class="modal-overlay" id="modalHarga">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Edit Opsi Perbandingan</div>
+      <button class="modal-close" onclick="closeModal('modalHarga')"><i class="ti ti-x"></i></button>
+    </div>
+    <form id="formEditHarga" method="POST">
+      @csrf @method('PUT')
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Kategori *</label>
+            <select name="category" id="editHargaCat" class="form-input" required>
+              <option value="hotel">Hotel</option>
+              <option value="transportasi">Transportasi</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nama *</label>
+            <input type="text" name="name" id="editHargaName" class="form-input" maxlength="100" required/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Detail</label>
+            <input type="text" name="description" id="editHargaDesc" class="form-input" maxlength="100"/>
+          </div>
+          <div class="form-group">
+            <label>Harga (Rp) *</label>
+            <input type="number" name="price" id="editHargaPrice" class="form-input" min="0" required/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Link Booking</label>
+            <input type="url" name="link" id="editHargaLink" class="form-input"/>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Catatan / Fasilitas</label>
+            <input type="text" name="notes" id="editHargaNotes" class="form-input" maxlength="150"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-ghost" onclick="closeModal('modalHarga')">Batal</button>
+        <button type="submit" class="btn-primary"><i class="ti ti-check"></i> Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 @endsection
 
 @push('scripts')
@@ -650,6 +801,16 @@ function openEditPhoto(id, caption) {
   document.getElementById('formEditPhoto').action      = '/photos/' + id;
   document.getElementById('editPhotoCaption').value    = caption;
   openModal('modalPhoto');
+}
+function openEditHarga(id, category, name, description, price, link, notes) {
+  document.getElementById('formEditHarga').action = '/price-comparisons/' + id;
+  document.getElementById('editHargaCat').value   = category;
+  document.getElementById('editHargaName').value  = name;
+  document.getElementById('editHargaDesc').value  = description;
+  document.getElementById('editHargaPrice').value = price;
+  document.getElementById('editHargaLink').value  = link;
+  document.getElementById('editHargaNotes').value = notes;
+  openModal('modalHarga');
 }
 </script>
 @endpush

@@ -41,4 +41,9 @@ class Trip extends Model
     {
         return $this->hasMany(Photo::class);
     }
+
+    public function priceComparisons()
+    {
+        return $this->hasMany(PriceComparison::class);
+    }
 }

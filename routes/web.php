@@ -5,6 +5,7 @@ use App\Http\Controllers\ItineraryController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PriceComparisonController;
 use App\Http\Controllers\AuthController; // ← baru
 use App\Http\Controllers\AdminController;
 
@@ -57,6 +58,11 @@ Route::delete('checklists/{checklist}', [ChecklistController::class, 'destroy'])
 Route::post('trips/{trip}/photos', [PhotoController::class, 'store'])->name('photos.store');
 Route::put('photos/{photo}', [PhotoController::class, 'update'])->name('photos.update');
 Route::delete('photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
+
+// Perbandingan Harga
+Route::post('trips/{trip}/price-comparisons', [PriceComparisonController::class, 'store'])->name('price-comparisons.store');
+Route::put('price-comparisons/{priceComparison}', [PriceComparisonController::class, 'update'])->name('price-comparisons.update');
+Route::delete('price-comparisons/{priceComparison}', [PriceComparisonController::class, 'destroy'])->name('price-comparisons.destroy');
 
     // Admin routes
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {

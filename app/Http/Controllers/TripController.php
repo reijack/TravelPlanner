@@ -42,13 +42,14 @@ class TripController extends Controller
 
     public function show(Trip $trip)
     {
-        $itineraries = $trip->itineraries()->get()->groupBy('day');
-        $budgets     = $trip->budgets;
-        $checklists  = $trip->checklists;
-        $photos      = $trip->photos;
+        $itineraries      = $trip->itineraries()->get()->groupBy('day');
+        $budgets          = $trip->budgets;
+        $checklists       = $trip->checklists;
+        $photos           = $trip->photos;
+        $priceComparisons = $trip->priceComparisons()->orderBy('price')->get()->groupBy('category');
 
         return view('trips.show', compact(
-            'trip', 'itineraries', 'budgets', 'checklists', 'photos'
+            'trip', 'itineraries', 'budgets', 'checklists', 'photos', 'priceComparisons'
         ));
     }
 
