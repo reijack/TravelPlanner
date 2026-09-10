@@ -37,6 +37,14 @@
   .role-user{background:#F0FDF4;color:#15803D}
 
   .trip-count{display:inline-flex;align-items:center;gap:5px;background:var(--gray1);padding:4px 10px;border-radius:8px;font-size:13px;color:var(--text-muted)}
+
+  @media (max-width: 900px){
+    .stats-grid{grid-template-columns:1fr}
+    .admin-header{padding:22px 20px}
+    .admin-header h2{font-size:20px}
+    .user-table-wrap{overflow-x:auto}
+    .user-table{min-width:640px}
+  }
 </style>
 @endpush
 

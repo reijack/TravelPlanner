@@ -70,11 +70,33 @@
     textarea.form-input{resize:vertical;line-height:1.5}
     select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23999' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
     .form-error{color:#B91C1C;font-size:12px;margin-top:4px}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99}
+    .sidebar-overlay.open{display:block}
+    .hamburger-btn{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text);font-size:22px;line-height:0}
+
+    @media (max-width: 900px){
+      .sidebar{transform:translateX(-100%);transition:transform .22s ease;z-index:200;box-shadow:0 0 24px rgba(0,0,0,.25)}
+      .sidebar.open{transform:translateX(0)}
+      .main-wrapper{margin-left:0}
+      .hamburger-btn{display:flex;align-items:center;justify-content:center}
+      .topbar{padding:0 14px;gap:10px}
+      .topbar-title{font-size:15px}
+      .content{padding:16px 14px 32px}
+      .user-name{display:none}
+      .page-header{flex-direction:column;align-items:stretch}
+      .page-h1{font-size:21px}
+      .form-row{grid-template-columns:1fr}
+    }
+    @media (max-width: 480px){
+      .topbar-actions{gap:6px}
+      .topbar-label{display:none}
+    }
   </style>
   @stack('styles')
 </head>
 <body>
-<aside class="sidebar">
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <div class="brand-logo"><i class="ti ti-compass"></i></div>
     <span class="brand-name">Travel Planner</span>
@@ -103,14 +125,17 @@
 </aside>
 <div class="main-wrapper">
   <header class="topbar">
+    <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Buka menu">
+      <i class="ti ti-menu-2"></i>
+    </button>
     <div class="topbar-title">@yield('page-title', 'Travel Planner')</div>
     <div class="topbar-actions">
   @if(Auth::check() && Auth::user()->is_admin)
   <a href="{{ route('admin.index') }}" class="btn-outline sm" style="border-color:#6D28D9;color:#6D28D9">
-    <i class="ti ti-shield-check"></i> Admin
+    <i class="ti ti-shield-check"></i> <span class="topbar-label">Admin</span>
   </a>
   @endif
-  <a href="{{ route('trips.create') }}" class="btn-primary sm"><i class="ti ti-plus"></i> Trip Baru</a>
+  <a href="{{ route('trips.create') }}" class="btn-primary sm"><i class="ti ti-plus"></i> <span class="topbar-label">Trip Baru</span></a>
   <div class="user-menu">
     <span class="user-name">{{ Auth::user()->name }}</span>
     <form method="POST" action="{{ route('logout') }}">
@@ -130,6 +155,27 @@
     @yield('content')
   </main>
 </div>
+<script>
+  (function(){
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    var btn = document.getElementById('hamburgerBtn');
+    function closeSidebar(){
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    }
+    if (btn) {
+      btn.addEventListener('click', function(){
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('open');
+      });
+    }
+    if (overlay) overlay.addEventListener('click', closeSidebar);
+    sidebar.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeSidebar);
+    });
+  })();
+</script>
 @stack('scripts')
 </body>
 </html>

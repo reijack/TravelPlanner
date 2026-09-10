@@ -92,6 +92,32 @@
   .pc-table tbody tr:hover{background:var(--gray1)}
   .pc-badge{font-size:11px;padding:2px 9px;border-radius:8px;font-weight:500;background:#EAF3DE;color:#3B6D11;white-space:nowrap}
   .pc-link{color:var(--forest);font-size:13px;display:inline-flex;align-items:center;gap:3px}
+
+  @media (max-width: 900px){
+    .trip-hero{padding:20px 20px;flex-direction:column;align-items:flex-start}
+    .trip-hero h2{font-size:20px}
+    .th-meta{font-size:12px;gap:10px}
+    .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;scrollbar-width:none}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab-btn{flex:0 0 auto;padding:9px 14px;font-size:12.5px;white-space:nowrap}
+    .add-form-grid{grid-template-columns:1fr}
+    .add-form-grid2{grid-template-columns:1fr}
+    .budget-stats{grid-template-columns:1fr}
+    .photo-grid{grid-template-columns:repeat(2,1fr)}
+    .form-section{padding:18px}
+    .budget-table-wrap,.pc-table-wrap{overflow-x:auto}
+    .budget-table,.pc-table{min-width:560px}
+    .modal{max-width:100%;margin:0 8px}
+    .modal-body,.modal-header,.modal-footer{padding-left:18px;padding-right:18px}
+  }
+  @media (max-width: 480px){
+    .th-meta{flex-direction:column;gap:6px;align-items:flex-start}
+    .photo-grid{grid-template-columns:1fr}
+    .day-header{padding:12px 14px}
+    .act-list{padding:6px 14px 10px}
+    .act-item{flex-wrap:wrap}
+    .act-tag{margin-left:auto}
+  }
 </style>
 @endpush
 

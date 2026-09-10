@@ -38,6 +38,19 @@
   .empty i{font-size:48px;color:var(--gray3);margin-bottom:16px;display:block}
   .empty h3{font-size:18px;margin-bottom:8px;color:var(--text)}
   .empty p{font-size:14px;margin-bottom:24px}
+
+  @media (max-width: 900px){
+    .stats-grid{grid-template-columns:repeat(2,1fr)}
+    .hero{padding:26px 22px}
+    .hero h1{font-size:22px}
+  }
+  @media (max-width: 480px){
+    .stats-grid{grid-template-columns:1fr}
+    .trips-grid{grid-template-columns:1fr}
+    .tc-actions{flex-direction:column}
+    .tc-actions form{width:100%}
+    .tc-actions .btn-outline{width:100%;justify-content:center}
+  }
 </style>
 @endpush
 
