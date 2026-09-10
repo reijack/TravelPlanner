@@ -10,6 +10,8 @@ class ItineraryController extends Controller
 {
     public function store(Request $request, Trip $trip)
     {
+        $this->authorizeTripOwner($trip);
+
         $request->validate([
             'activity' => 'required|string|max:255',
             'day'      => 'required|integer',
@@ -30,6 +32,8 @@ class ItineraryController extends Controller
 
     public function update(Request $request, Itinerary $itinerary)
     {
+        $this->authorizeTripOwner($itinerary->trip);
+
         $request->validate([
             'activity' => 'required|string|max:255',
             'time'     => 'nullable|date_format:H:i',
@@ -48,6 +52,8 @@ class ItineraryController extends Controller
 
     public function destroy(Itinerary $itinerary)
     {
+        $this->authorizeTripOwner($itinerary->trip);
+
         $itinerary->delete();
         return back()->with('success', 'Aktivitas dihapus.');
     }

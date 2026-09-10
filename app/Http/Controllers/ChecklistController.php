@@ -10,6 +10,8 @@ class ChecklistController extends Controller
 {
     public function store(Request $request, Trip $trip)
     {
+        $this->authorizeTripOwner($trip);
+
         $request->validate(['item_name' => 'required|string|max:255']);
 
         $trip->checklists()->create([
@@ -23,12 +25,16 @@ class ChecklistController extends Controller
 
     public function toggle(Checklist $checklist)
     {
+        $this->authorizeTripOwner($checklist->trip);
+
         $checklist->update(['status' => !$checklist->status]);
         return back();
     }
 
     public function update(Request $request, Checklist $checklist)
     {
+        $this->authorizeTripOwner($checklist->trip);
+
         $request->validate([
             'item_name' => ['required', 'string', 'regex:/^[A-Za-z\s]+$/', 'max:255'],
         ]);
@@ -43,6 +49,8 @@ class ChecklistController extends Controller
 
     public function destroy(Checklist $checklist)
     {
+        $this->authorizeTripOwner($checklist->trip);
+
         $checklist->delete();
         return back()->with('success', 'Item dihapus.');
     }

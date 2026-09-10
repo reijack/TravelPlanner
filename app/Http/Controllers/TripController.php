@@ -9,7 +9,7 @@ class TripController extends Controller
 {
     public function index()
     {
-        $trips = Trip::latest()->get();
+        $trips = auth()->user()->trips()->latest()->get();
         return view('trips.index', compact('trips'));
     }
 
@@ -20,7 +20,7 @@ class TripController extends Controller
 
     public function store(Request $request)
     {
-       $request->validate([
+       $validated = $request->validate([
     'trip_name'   => ['required','string','max:30','regex:/^[A-Za-z\s]+$/'],
     'destination' => ['required','string','max:30','regex:/^[A-Za-z\s,]+$/'],
     'start_date'  => ['required','date','after_or_equal:today'],
@@ -34,7 +34,7 @@ class TripController extends Controller
     'end_date.after_or_equal' => 'Tanggal pulang tidak boleh lebih awal dari tanggal berangkat.',
 ]);
 
-        Trip::create($request->all());
+        auth()->user()->trips()->create($validated);
 
         return redirect()->route('trips.index')
                          ->with('success', 'Trip berhasil dibuat! 🎉');
@@ -42,6 +42,8 @@ class TripController extends Controller
 
     public function show(Trip $trip)
     {
+        $this->authorizeTripOwner($trip);
+
         $itineraries      = $trip->itineraries()->get()->groupBy('day');
         $budgets          = $trip->budgets;
         $checklists       = $trip->checklists;
@@ -55,12 +57,16 @@ class TripController extends Controller
 
     public function edit(Trip $trip)
     {
+        $this->authorizeTripOwner($trip);
+
         return view('trips.edit', compact('trip'));
     }
 
     public function update(Request $request, Trip $trip)
     {
-       $request->validate([
+        $this->authorizeTripOwner($trip);
+
+       $validated = $request->validate([
     'trip_name'   => ['required','string','max:255','regex:/^[A-Za-z\s]+$/'],
     'destination' => ['required','string','max:255','regex:/^[A-Za-z\s,]+$/'],
     'start_date'  => ['required','date','after_or_equal:today'],
@@ -74,7 +80,7 @@ class TripController extends Controller
     'end_date.after_or_equal' => 'Tanggal pulang tidak boleh lebih awal dari tanggal berangkat.',
 ]);
 
-        $trip->update($request->all());
+        $trip->update($validated);
 
         return redirect()->route('trips.show', $trip)
                          ->with('success', 'Trip berhasil diupdate!');
@@ -82,6 +88,8 @@ class TripController extends Controller
 
     public function destroy(Trip $trip)
     {
+        $this->authorizeTripOwner($trip);
+
         $trip->delete();
 
         return redirect()->route('trips.index')

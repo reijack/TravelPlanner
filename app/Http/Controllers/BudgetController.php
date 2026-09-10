@@ -10,6 +10,8 @@ class BudgetController extends Controller
 {
     public function store(Request $request, Trip $trip)
     {
+        $this->authorizeTripOwner($trip);
+
         $request->validate([
             'estimated' => 'required|integer|min:0',
         ]);
@@ -26,6 +28,8 @@ class BudgetController extends Controller
 
     public function update(Request $request, Budget $budget)
     {
+        $this->authorizeTripOwner($budget->trip);
+
         $request->validate([
             'estimated' => 'required|integer|min:0',
         ]);
@@ -42,6 +46,8 @@ class BudgetController extends Controller
 
     public function destroy(Budget $budget)
     {
+        $this->authorizeTripOwner($budget->trip);
+
         $budget->delete();
         return back()->with('success', 'Budget dihapus.');
     }

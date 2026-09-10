@@ -10,6 +10,8 @@ class PriceComparisonController extends Controller
 {
     public function store(Request $request, Trip $trip)
     {
+        $this->authorizeTripOwner($trip);
+
         $request->validate([
             'category'    => 'required|in:hotel,transportasi',
             'name'        => 'required|string|max:100',
@@ -33,6 +35,8 @@ class PriceComparisonController extends Controller
 
     public function update(Request $request, PriceComparison $priceComparison)
     {
+        $this->authorizeTripOwner($priceComparison->trip);
+
         $request->validate([
             'category'    => 'required|in:hotel,transportasi',
             'name'        => 'required|string|max:100',
@@ -56,6 +60,8 @@ class PriceComparisonController extends Controller
 
     public function destroy(PriceComparison $priceComparison)
     {
+        $this->authorizeTripOwner($priceComparison->trip);
+
         $priceComparison->delete();
 
         return back()->with('success', 'Opsi dihapus.');

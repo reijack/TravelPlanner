@@ -11,6 +11,8 @@ class PhotoController extends Controller
 {
     public function store(Request $request, Trip $trip)
     {
+        $this->authorizeTripOwner($trip);
+
         $request->validate([
             'image' => ['required', 'image', 'mimes:png,jpg,jpeg', 'max:5120'],
             'caption' => ['nullable', 'string', 'max:255'],
@@ -28,6 +30,8 @@ class PhotoController extends Controller
 
     public function update(Request $request, Photo $photo)
     {
+        $this->authorizeTripOwner($photo->trip);
+
         $request->validate([
             'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:5120'],
             'caption' => ['nullable', 'string', 'max:255'],
@@ -49,6 +53,8 @@ class PhotoController extends Controller
 
     public function destroy(Photo $photo)
     {
+        $this->authorizeTripOwner($photo->trip);
+
         Storage::disk('public')->delete($photo->image_path);
         $photo->delete();
         return back()->with('success', 'Foto dihapus.');
