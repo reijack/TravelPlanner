@@ -56,7 +56,7 @@
 
 @section('content')
 <div class="hero">
-  <div class="hero-tag"><i class="ti ti-sun"></i> Selamat datang!</div>
+  <div class="hero-tag"><i class="ti ti-sun"></i> Selamat datang, {{ explode(' ', auth()->user()->name)[0] }}!</div>
   <h1>Perjalanan berikutnya, lebih terencana.</h1>
   <p>Atur destinasi, aktivitas, dan anggaran dalam satu tempat.</p>
   <a href="{{ route('trips.create') }}" class="btn-primary"><i class="ti ti-plus"></i> Buat Trip Baru</a>

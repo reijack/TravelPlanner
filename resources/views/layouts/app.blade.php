@@ -47,6 +47,8 @@
     .logout-btn{background:none;border:1px solid var(--gray3);border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:var(--ff-body);transition:all .18s}
     .logout-btn:hover{background:var(--gray1);color:var(--text)}
     .avatar{width:36px;height:36px;background:var(--forest);border-radius:50%;color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center}
+    .avatar.sm{width:28px;height:28px;font-size:12px;flex-shrink:0}
+    .user-menu-link{display:flex;align-items:center;gap:8px;text-decoration:none}
     .content{flex:1;padding:28px 32px 48px;min-width:0;overflow-x:hidden}
     .alert{padding:12px 18px;border-radius:12px;margin-bottom:20px;font-size:14px;display:flex;align-items:center;gap:10px}
     .alert-success{background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0}
@@ -113,6 +115,9 @@
     <a href="{{ route('trips.create') }}" class="nav-item {{ request()->routeIs('trips.create') ? 'active' : '' }}">
       <i class="ti ti-plus"></i> Buat Trip Baru
     </a>
+    <a href="{{ route('profile.show') }}" class="nav-item {{ request()->routeIs('profile.show') ? 'active' : '' }}">
+      <i class="ti ti-user-circle"></i> Profil Saya
+    </a>
   </nav>
   <div class="sidebar-trips">
     <div class="nav-label">Trip Aktif</div>
@@ -141,7 +146,10 @@
   @endif
   <a href="{{ route('trips.create') }}" class="btn-primary sm"><i class="ti ti-plus"></i> <span class="topbar-label">Trip Baru</span></a>
   <div class="user-menu">
-    <span class="user-name">{{ Auth::user()->name }}</span>
+    <a href="{{ route('profile.show') }}" class="user-menu-link" title="Lihat profil">
+      <span class="avatar sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+      <span class="user-name">{{ Auth::user()->name }}</span>
+    </a>
     <form method="POST" action="{{ route('logout') }}">
       @csrf
       <button type="submit" class="logout-btn">Keluar</button>

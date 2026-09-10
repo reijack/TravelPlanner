@@ -6,6 +6,7 @@ use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PriceComparisonController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController; // ← baru
 use App\Http\Controllers\AdminController;
 
@@ -36,6 +37,7 @@ Route::post('/register',[AuthController::class, 'register']);
 // Semua trip route dilindungi auth
 Route::middleware('auth')->group(function() {
     Route::get('/', fn() => redirect()->route('trips.index'));
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::resource('trips', TripController::class);
 
     // Itinerary
