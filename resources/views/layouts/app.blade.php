@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
+    html{overflow-x:hidden;width:100%}
     :root{
       --forest:#1B4332;--forest-lt:#2D6A4F;--sage:#52796F;
       --terra:#C1440E;--gold:#E09F3E;--cream:#FDFAF5;
@@ -18,7 +19,7 @@
       --ff-display:'Playfair Display',serif;
       --ff-body:'DM Sans',sans-serif;
     }
-    body{font-family:var(--ff-body);background:var(--cream);color:var(--text);min-height:100vh;display:flex}
+    body{font-family:var(--ff-body);background:var(--cream);color:var(--text);min-height:100vh;display:flex;overflow-x:hidden;width:100%}
     ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--gray3);border-radius:3px}
     .sidebar{width:260px;min-height:100vh;background:var(--forest);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100;overflow-y:auto}
     .sidebar-brand{display:flex;align-items:center;gap:12px;padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.1)}
@@ -37,7 +38,7 @@
     .trip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--terra)}
     .trip-pill-name{font-size:13px;color:#fff}
     .trip-pill-date{font-size:11px;color:rgba(255,255,255,.45);margin-top:1px}
-    .main-wrapper{margin-left:260px;flex:1;display:flex;flex-direction:column}
+    .main-wrapper{margin-left:260px;flex:1;display:flex;flex-direction:column;min-width:0;overflow-x:hidden}
     .topbar{height:62px;background:#fff;border-bottom:1px solid var(--gray2);display:flex;align-items:center;padding:0 28px;gap:16px;position:sticky;top:0;z-index:50;box-shadow:0 1px 3px rgba(0,0,0,.06)}
     .topbar-title{font-size:17px;font-weight:500;flex:1}
     .topbar-actions{display:flex;align-items:center;gap:8px}
