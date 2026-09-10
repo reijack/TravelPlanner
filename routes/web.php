@@ -34,9 +34,16 @@ Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register',[AuthController::class, 'register']);
 
+// Landing page publik
+Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('trips.index');
+    }
+    return view('landing');
+})->name('landing');
+
 // Semua trip route dilindungi auth
 Route::middleware('auth')->group(function() {
-    Route::get('/', fn() => redirect()->route('trips.index'));
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::resource('trips', TripController::class);
 
