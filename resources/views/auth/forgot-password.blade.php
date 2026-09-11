@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Lupa Password – Travel Planner</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     :root{--forest:#16324F;--gold:#CBA35D;--sage:#5C7A99;
@@ -24,21 +25,23 @@
     h1{font-family:var(--ff-display);font-size:22px;color:var(--forest);
        margin-bottom:6px;font-weight:700}
     .sub{font-size:14px;color:var(--text-muted);margin-bottom:24px}
-    label{display:block;font-size:13px;font-weight:500;color:#3A3834;margin-bottom:6px}
-    input{width:100%;background:#F8F8F6;border:1px solid var(--gray2);
-          border-radius:8px;padding:10px 14px;font-size:14px;
-          font-family:var(--ff-body);color:var(--text);transition:all .18s;margin-bottom:16px}
+    label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+    .field{position:relative;margin-bottom:16px}
+    .field i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gray3);font-size:16px}
+    input{width:100%;background:#F7F9FB;border:1px solid var(--gray2);
+          border-radius:9px;padding:11px 14px 11px 38px;font-size:14px;
+          font-family:var(--ff-body);color:var(--text);transition:all .18s}
     input:focus{outline:none;border-color:var(--sage);background:#fff;
                 box-shadow:0 0 0 3px rgba(92,122,153,.15)}
     .err{color:#B91C1C;font-size:12px;margin-top:-12px;margin-bottom:12px}
-    .success{background:#EEF5F0;color:var(--forest);font-size:13px;
-             padding:10px 14px;border-radius:8px;margin-bottom:16px}
-    .btn{width:100%;padding:11px;background:var(--forest);color:#fff;
-         border:none;border-radius:8px;font-size:15px;font-weight:500;
-          font-family:var(--ff-body);cursor:pointer;transition:background .18s}
-    .btn:hover{background:var(--sage)}
-    .footer{text-align:center;margin-top:18px;font-size:13px;color:var(--text-muted)}
-    .footer a{color:var(--forest);text-decoration:none;font-weight:500}
+    .success{display:flex;align-items:center;gap:8px;background:#EAF1F8;color:var(--forest);font-size:13px;
+             padding:10px 14px;border-radius:9px;margin-bottom:16px}
+    .btn{width:100%;padding:12px;background:var(--forest);color:#fff;
+         border:none;border-radius:9px;font-size:15px;font-weight:700;
+          font-family:var(--ff-body);cursor:pointer;transition:background .18s;display:flex;align-items:center;justify-content:center;gap:8px}
+    .btn:hover{background:var(--forest-lt)}
+    .footer{text-align:center;margin-top:18px;font-size:13.5px;color:var(--text-muted)}
+    .footer a{color:var(--forest);text-decoration:none;font-weight:700}
   </style>
   <link rel="stylesheet" href="{{ asset('css/refined.css') }}"/>
 </head>
@@ -53,16 +56,19 @@
     <p class="sub">Masukkan email kamu, kami akan kirimkan link untuk reset password</p>
 
     @if(session('success'))
-      <p class="success">{{ session('success') }}</p>
+      <p class="success"><i class="ti ti-circle-check"></i> {{ session('success') }}</p>
     @endif
 
     <form method="POST" action="{{ route('password.email') }}">
       @csrf
       <label>Email</label>
-      <input type="email" name="email" value="{{ old('email') }}" required/>
+      <div class="field">
+        <i class="ti ti-mail"></i>
+        <input type="email" name="email" value="{{ old('email') }}" placeholder="nama@email.com" required/>
+      </div>
       @error('email') <p class="err">{{ $message }}</p> @enderror
 
-      <button class="btn" type="submit">Kirim Link Reset</button>
+      <button class="btn" type="submit">Kirim Link Reset <i class="ti ti-send"></i></button>
     </form>
     <p class="footer">
       <a href="{{ route('login') }}">&larr; Kembali ke halaman Masuk</a>
