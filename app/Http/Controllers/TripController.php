@@ -27,6 +27,7 @@ class TripController extends Controller
     'end_date'    => ['required','date','after_or_equal:start_date'],
     'people'      => 'required|integer|min:1',
     'budget'      => 'nullable|integer',
+    'status'      => 'nullable|in:planned,upcoming,done',
 ],[
     'trip_name.regex'   => 'Nama trip hanya boleh huruf!',
     'destination.regex' => 'Destinasi hanya boleh huruf!',
@@ -73,6 +74,7 @@ class TripController extends Controller
     'end_date'    => ['required','date','after_or_equal:start_date'],
     'people'      => 'required|integer|min:1',
     'budget'      => 'nullable|integer',
+    'status'      => 'nullable|in:planned,upcoming,done',
 ], [
     'trip_name.regex'   => 'Nama trip hanya boleh huruf, tidak boleh angka!',
     'destination.regex' => 'Destinasi hanya boleh huruf, tidak boleh angka!',
