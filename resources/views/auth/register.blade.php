@@ -17,9 +17,21 @@
           --ff-body:'DM Sans',sans-serif}
     body{font-family:var(--ff-body);min-height:100vh;display:flex;overflow-x:hidden}
 
-    .brand-panel{flex:1;background:linear-gradient(155deg,var(--forest) 0%,#0F2439 100%);position:relative;overflow:hidden;padding:56px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
-    .brand-panel::before{content:'';position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(203,163,93,.18),transparent 70%);top:-140px;right:-120px}
-    .brand-panel::after{content:'';position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);bottom:-100px;left:-80px}
+    .brand-panel{flex:1;position:relative;overflow:hidden;padding:56px;display:flex;flex-direction:column;justify-content:space-between;min-width:0;
+      background:
+        radial-gradient(circle at 88% 6%, rgba(203,163,93,.32), transparent 38%),
+        radial-gradient(circle at 6% 96%, rgba(20,150,136,.30), transparent 42%),
+        radial-gradient(circle at 60% 42%, rgba(255,255,255,.05), transparent 55%),
+        linear-gradient(160deg,var(--forest) 0%,#0F2439 100%)}
+    .brand-panel::before{content:'';position:absolute;inset:0;
+      background-image:radial-gradient(rgba(255,255,255,.10) 1.4px,transparent 1.4px);
+      background-size:26px 26px;
+      -webkit-mask-image:radial-gradient(circle at 55% 42%,#000 5%,transparent 68%);
+      mask-image:radial-gradient(circle at 55% 42%,#000 5%,transparent 68%);
+      pointer-events:none}
+    .brand-panel::after{content:'';position:absolute;width:540px;height:540px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.07);top:38%;left:-140px;transform:translateY(-50%);pointer-events:none}
+    .bp-route{position:absolute;top:108px;right:-30px;width:380px;max-width:52%;opacity:.9;pointer-events:none;z-index:0}
     .bp-logo{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
     .bp-logo-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .bp-logo-icon img{width:100%;height:100%;object-fit:contain}
@@ -65,6 +77,16 @@
 <body>
 
 <div class="brand-panel">
+  <svg class="bp-route" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40 70 C 140 40, 160 140, 90 190 S 60 300, 190 320 S 300 260, 330 190"
+          stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round"/>
+    <circle cx="40" cy="70" r="5" fill="#fff" fill-opacity=".55"/>
+    <circle cx="90" cy="190" r="5" fill="#fff" fill-opacity=".4"/>
+    <circle cx="190" cy="320" r="5" fill="#fff" fill-opacity=".4"/>
+    <circle cx="330" cy="190" r="9" fill="#CBA35D"/>
+    <circle cx="330" cy="190" r="16" stroke="#CBA35D" stroke-opacity=".45" stroke-width="1.5"/>
+    <path d="M330 175 L336 190 L330 198 L324 190 Z" fill="#0F2439" fill-opacity=".4"/>
+  </svg>
   <div class="bp-logo">
     <div class="bp-logo-icon"><img src="{{ asset('images/logo-icon.png') }}" alt="Travel Planner"/></div>
     <span class="bp-logo-name">Travel Planner</span>
