@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Login – Travel Planner</title>
+  <link rel="icon" href="{{ asset('images/logo-icon.png') }}"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
   <style>
@@ -21,7 +22,8 @@
     .brand-panel::before{content:'';position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(203,163,93,.18),transparent 70%);top:-140px;right:-120px}
     .brand-panel::after{content:'';position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);bottom:-100px;left:-80px}
     .bp-logo{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
-    .bp-logo-icon{width:40px;height:40px;background:var(--gold);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px}
+    .bp-logo-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .bp-logo-icon img{width:100%;height:100%;object-fit:contain}
     .bp-logo-name{font-family:var(--ff-display);font-size:20px;color:#fff;font-weight:700}
     .bp-mid{position:relative;z-index:1;max-width:400px}
     .bp-mid h1{font-family:var(--ff-display);font-size:clamp(26px,2.6vw,34px);color:#fff;line-height:1.25;font-weight:700;margin-bottom:16px}
@@ -34,9 +36,8 @@
     /* RIGHT FORM PANEL */
     .form-panel{width:480px;flex-shrink:0;background:#fff;display:flex;align-items:center;justify-content:center;padding:24px}
     .wrap{width:100%;max-width:360px}
-    .mobile-logo{display:none;align-items:center;gap:10px;margin-bottom:32px;justify-content:center}
-    .mobile-logo .logo-icon{width:38px;height:38px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
-    .mobile-logo .logo-name{font-family:var(--ff-display);font-size:19px;color:var(--forest);font-weight:700}
+    .mobile-logo{display:none;margin-bottom:32px;justify-content:center}
+    .mobile-logo img{height:34px;width:auto}
     h1.form-title{font-family:var(--ff-display);font-size:24px;color:var(--text);margin-bottom:6px;font-weight:700}
     .sub{font-size:14px;color:var(--text-muted);margin-bottom:28px}
     label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
@@ -70,7 +71,7 @@
 
 <div class="brand-panel">
   <div class="bp-logo">
-    <div class="bp-logo-icon">🧭</div>
+    <div class="bp-logo-icon"><img src="{{ asset('images/logo-icon.png') }}" alt="Travel Planner"/></div>
     <span class="bp-logo-name">Travel Planner</span>
   </div>
   <div class="bp-mid">
@@ -86,8 +87,7 @@
 <div class="form-panel">
   <div class="wrap">
     <div class="mobile-logo">
-      <div class="logo-icon">🧭</div>
-      <span class="logo-name">Travel Planner</span>
+      <img src="{{ asset('images/logo.png') }}" alt="Travel Planner"/>
     </div>
     <h1 class="form-title">Selamat datang kembali</h1>
     <p class="sub">Masuk untuk melanjutkan perjalananmu</p>

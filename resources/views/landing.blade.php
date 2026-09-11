@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Travel Planner — Rencanakan Perjalananmu Tanpa Ribet</title>
+  <link rel="icon" href="{{ asset('images/logo-icon.png') }}"/>
   <meta name="description" content="Atur itinerary, budget, checklist, galeri, dan perbandingan harga hotel & transportasi dalam satu tempat. Gratis untuk dicoba."/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
@@ -24,9 +25,8 @@
     /* NAV */
     .nav{position:sticky;top:0;z-index:50;background:rgba(246,248,251,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--gray2)}
     .nav-inner{max-width:1160px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
-    .nav-logo{display:flex;align-items:center;gap:10px}
-    .nav-logo-icon{width:36px;height:36px;background:var(--forest);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
-    .nav-logo-name{font-family:var(--ff-display);font-size:19px;font-weight:700;color:var(--forest)}
+    .nav-logo{display:flex;align-items:center}
+    .nav-logo img{height:32px;width:auto}
     .nav-actions{display:flex;align-items:center;gap:10px}
     .btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:10px;font-size:14px;font-weight:600;font-family:var(--ff-body);border:1px solid transparent;cursor:pointer;transition:all .18s}
     .btn-nav-ghost{color:var(--text);background:transparent}
@@ -115,7 +115,7 @@
       .cta-banner{padding:44px 28px}
     }
     @media(max-width:560px){
-      .nav-logo-name{display:none}
+      .nav-logo img{height:26px}
       .feat-grid{grid-template-columns:1fr}
       .section{padding:56px 0}
       .mockup-badge-float{display:none}
@@ -130,8 +130,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <div class="nav-logo">
-      <div class="nav-logo-icon">🧭</div>
-      <span class="nav-logo-name">Travel Planner</span>
+      <img src="{{ asset('images/logo.png') }}" alt="Travel Planner"/>
     </div>
     <div class="nav-actions">
       <a href="{{ route('login') }}" class="btn btn-nav-ghost">Masuk</a>

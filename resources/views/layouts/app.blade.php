@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Travel Planner — @yield('title', 'Perencana Perjalanan')</title>
+  <link rel="icon" href="{{ asset('images/logo-icon.png') }}"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
   <style>
@@ -23,8 +24,8 @@
     ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--gray3);border-radius:3px}
     .sidebar{width:260px;min-height:100vh;background:var(--forest);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100;overflow-y:auto}
     .sidebar-brand{display:flex;align-items:center;gap:12px;padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.1)}
-    .brand-logo{width:38px;height:38px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center}
-    .brand-logo i{color:var(--forest);font-size:20px}
+    .brand-logo{width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .brand-logo img{width:100%;height:100%;object-fit:contain}
     .brand-name{font-family:var(--ff-display);color:#fff;font-size:20px;font-weight:600}
     .sidebar-nav{padding:18px 12px 8px}
     .nav-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);padding:0 10px;margin-bottom:6px}
@@ -103,7 +104,7 @@
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-brand">
-    <div class="brand-logo"><i class="ti ti-compass"></i></div>
+    <div class="brand-logo"><img src="{{ asset('images/logo-icon.png') }}" alt="Travel Planner"/></div>
     <span class="brand-name">Travel Planner</span>
     <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Tutup menu">×</button>
   </div>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Reset Password – Travel Planner</title>
+  <link rel="icon" href="{{ asset('images/logo-icon.png') }}"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
   <style>
@@ -16,10 +17,8 @@
     body{font-family:var(--ff-body);background:var(--cream);
          min-height:100vh;display:flex;align-items:center;justify-content:center}
     .wrap{width:100%;max-width:420px;padding:24px}
-    .logo{display:flex;align-items:center;gap:10px;margin-bottom:32px;justify-content:center}
-    .logo-icon{width:42px;height:42px;background:var(--gold);border-radius:10px;
-               display:flex;align-items:center;justify-content:center;font-size:22px}
-    .logo-name{font-family:var(--ff-display);font-size:22px;color:var(--forest);font-weight:700}
+    .logo{display:flex;margin-bottom:32px;justify-content:center}
+    .logo img{height:38px;width:auto}
     .card{background:#fff;border-radius:16px;border:1px solid var(--gray2);
           padding:2rem 2.25rem;box-shadow:0 2px 16px rgba(0,0,0,.06)}
     h1{font-family:var(--ff-display);font-size:22px;color:var(--forest);
@@ -45,8 +44,7 @@
 <body class="auth-page">
 <div class="wrap">
   <div class="logo">
-    <div class="logo-icon">🧭</div>
-    <span class="logo-name">Travel Planner</span>
+    <img src="{{ asset('images/logo.png') }}" alt="Travel Planner"/>
   </div>
   <div class="card">
     <h1>Buat Password Baru</h1>
